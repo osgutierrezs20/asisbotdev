@@ -7,15 +7,23 @@ datasource db {
 	url      = env("DATABASE_URL")
 }
 
+model Category {
+	id        Int       @id @default(autoincrement())
+	name      String    @unique @db.VarChar(100)
+	createdAt DateTime  @default(now())
+	products  Product[] // Relación uno a muchos
+}
+
 model Product {
-	id               Int      @id @default(autoincrement())
-	name             String
-	description      String
-	active_principle String   @db.VarChar(255)
-	category         String   @db.VarChar(100)
-	stock            Int
-	price            Float
-	createdAt        DateTime @default(now())
+	id          Int      @id @default(autoincrement())
+	name        String
+	description String
+	stock       Int
+	price       Float
+	imageUrl    String?  // URL de la imagen del producto (opcional)
+	categoryId  Int      // Foreign key
+	category    Category @relation(fields: [categoryId], references: [id])
+	createdAt   DateTime @default(now())
 }
 
 model Conversation {
@@ -24,4 +32,3 @@ model Conversation {
 	botResponse String   @db.Text
 	createdAt   DateTime @default(now())
 }
-

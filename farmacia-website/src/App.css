@@ -1,0 +1,329 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f8f9fa;
+}
+
+/* Header */
+.app-header {
+  background: linear-gradient(135deg, #0066cc 0%, #004c99 100%);
+  color: white;
+  padding: 20px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-section {
+  flex-grow: 1;
+}
+
+.brand-name {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 4px 0;
+  letter-spacing: -0.5px;
+}
+
+.brand-tagline {
+  font-size: 14px;
+  margin: 0;
+  opacity: 0.9;
+  font-weight: 300;
+}
+
+.header-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.btn-icon {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 20px;
+  position: relative;
+}
+
+.btn-icon:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.btn-icon.cart {
+  background: #ff6b35;
+}
+
+.btn-icon.cart:hover {
+  background: #ff5722;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: #e63946;
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid white;
+}
+
+/* Main Content */
+.main-content {
+  flex-grow: 1;
+  width: 100%;
+}
+
+.page-title {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 32px 24px 16px;
+}
+
+.page-title h2 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 8px 0;
+}
+
+.results-count {
+  font-size: 15px;
+  color: #666;
+  margin: 0;
+}
+
+/* Footer */
+.app-footer {
+  background-color: #1a1a1a;
+  color: white;
+  text-align: center;
+  padding: 24px;
+  margin-top: 48px;
+}
+
+.app-footer p {
+  margin: 0;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .brand-name {
+    font-size: 22px;
+  }
+
+  .brand-tagline {
+    font-size: 12px;
+  }
+
+  .page-title h2 {
+    font-size: 24px;
+  }
+
+  .header-container {
+    padding: 0 16px;
+  }
+
+  .page-title {
+    padding: 24px 16px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .brand-tagline {
+    display: none;
+  }
+
+  .btn-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+}
+
+/* ========================================= */
+/* ESTILOS DEL WIDGET DE ASISBOT             */
+/* ========================================= */
+
+/* --- 1. La Burbuja de Chat Flotante --- */
+.chat-toggle-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #007bff; /* Color azul primario */
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 28px;
+  line-height: 60px; /* Centra el emoji verticalmente */
+  text-align: center; /* Centra el emoji horizontalmente */
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 9998;
+  transition: transform 0.2s ease-out;
+}
+
+.chat-toggle-button:hover {
+  transform: scale(1.1);
+}
+
+/* --- 2. El Contenedor de la Ventana del Chat --- */
+.chat-widget-container {
+  position: fixed;
+  bottom: 90px; /* (20px del botón + 60px de alto + 10px margen) */
+  right: 20px;
+  width: 370px; /* Ancho estándar de widget */
+  height: 500px; /* Alto estándar */
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+  
+  /* Usamos Flexbox para organizar el interior */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Para que los bordes redondeados se apliquen al chat */
+}
+
+/* --- 3. Estilos del ChatWindow (El componente que pegaste) --- */
+/* Asumimos que el div principal de ChatWindow.tsx tiene className="chat-window" */
+.chat-window {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  background-color: #ffffff;
+}
+
+/* --- 4. Contenedor de Mensajes (Scroll) --- */
+/* Asumimos que el div que lista los mensajes tiene className="messages-container" */
+.messages-container {
+  flex-grow: 1; /* Ocupa todo el espacio disponible */
+  overflow-y: auto; /* ¡Permite el scroll! */
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Espacio entre burbujas de chat */
+}
+
+/* --- 5. Burbujas de Mensaje (User vs. Bot) --- */
+/* Asumimos className="message user" o "message bot" */
+.message {
+  padding: 10px 15px;
+  border-radius: 18px;
+  max-width: 80%;
+  word-wrap: break-word; /* Evita que el texto se salga */
+}
+
+.message.user {
+  background-color: #007bff;
+  color: white;
+  align-self: flex-end; /* Alinea a la derecha */
+  border-bottom-right-radius: 4px; /* Estilo "burbuja" */
+}
+
+.message.bot {
+  background-color: #f1f1f1;
+  color: #333;
+  align-self: flex-start; /* Alinea a la izquierda */
+  border-bottom-left-radius: 4px; /* Estilo "burbuja" */
+}
+
+/* --- 6. Formulario de Input (Abajo) --- */
+/* Asumimos que el <form> está al final */
+.chat-window form {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #ddd;
+  background-color: #f9f9f9;
+}
+
+.chat-window form input {
+  flex-grow: 1;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 10px 15px;
+  font-size: 14px;
+  margin-right: 10px;
+}
+
+.chat-window form button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.chat-window form button:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
+/* --- 7. Indicador de Loading --- */
+.loading-indicator {
+  padding: 8px 15px;
+  background-color: #f1f1f1;
+  color: #666;
+  border-radius: 18px;
+  max-width: 80%;
+  align-self: flex-start;
+  font-style: italic;
+  font-size: 14px;
+  margin-left: 15px;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}

@@ -1,5 +1,9 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
+import 'dotenv/config';
+import chatRoutes from './routes/chat.routes';
+import productRoutes from './routes/product.routes';
+import categoryRoutes from './routes/category.routes';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -8,12 +12,10 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
-// Mock endpoint para /api/chat (HU-04)
-app.post('/api/chat', async (req: Request, res: Response) => {
-  const { message } = req.body;
-  console.log('Mensaje recibido:', message);
-  return res.json({ response: 'Hola, soy Asisbot. Recibí tu mensaje.' });
-});
+// Rutas
+app.use('/api', chatRoutes);
+app.use('/api', productRoutes);
+app.use('/api', categoryRoutes);
 
 // Health / root
 app.get('/', (req: Request, res: Response) => {
@@ -24,4 +26,3 @@ app.get('/', (req: Request, res: Response) => {
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
-

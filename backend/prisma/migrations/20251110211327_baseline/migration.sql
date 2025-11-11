@@ -1,0 +1,6 @@
+-- This migration represents the current state of the database
+-- The schema was created manually, so this is a baseline migration
+-- No changes needed - database already has:
+-- - Category table with name unique constraint
+-- - Product table with categoryId foreign key and imageUrl field
+-- - Conversation table
